@@ -1,13 +1,15 @@
 import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
-import react from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
+import reactPlugin from "eslint-plugin-react";
+import reactHooksPlugin from "eslint-plugin-react-hooks";
+import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import { defineConfig, globalIgnores } from "eslint/config";
 import prettierPlugin from "eslint-plugin-prettier";
 import importPlugin from "eslint-plugin-import";
-import simpleImportSort from "eslint-plugin-simple-import-sort";
+import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
+import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
+import boundariesPlugin from "eslint-plugin-boundaries";
 
 export default defineConfig([
   globalIgnores([
@@ -17,12 +19,15 @@ export default defineConfig([
     "build",
     "public",
     "eslint.config.js",
+    "i18next-parser.config.js",
+    ".stylelintrc.cjs",
     "stripe-server-test.js",
   ]),
 
   js.configs.recommended,
-  ...tseslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
+  tseslint.configs.recommended,
+  tseslint.configs.recommendedTypeChecked,
+  jsxA11yPlugin.flatConfigs.recommended,
 
   {
     files: ["**/*.{ts,tsx,js,jsx}"],
@@ -31,10 +36,17 @@ export default defineConfig([
       react: { version: "detect" },
       "import/resolver": {
         typescript: {
-          alwaysTryTypes: true,
           project: "./tsconfig.json",
         },
       },
+      "boundaries/elements": [
+        { type: "app", pattern: "src/app" },
+        { type: "pages", pattern: "src/pages/*" },
+        { type: "widgets", pattern: "src/widgets/*" },
+        { type: "features", pattern: "src/features/*" },
+        { type: "entities", pattern: "src/entities/*" },
+        { type: "shared", pattern: "src/shared/*" },
+      ],
     },
 
     languageOptions: {
@@ -42,7 +54,6 @@ export default defineConfig([
       sourceType: "module",
       parser: tseslint.parser,
       parserOptions: {
-        project: "./tsconfig.json",
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
@@ -53,16 +64,25 @@ export default defineConfig([
     },
 
     plugins: {
-      react,
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
+      react: reactPlugin,
+      "react-hooks": reactHooksPlugin,
+      "react-refresh": reactRefreshPlugin,
       "@typescript-eslint": tseslint.plugin,
-      prettier: prettierPlugin,
+      boundaries: boundariesPlugin,
       import: importPlugin,
-      "simple-import-sort": simpleImportSort,
+      "simple-import-sort": simpleImportSortPlugin,
+      prettier: prettierPlugin,
     },
 
     rules: {
+      ...reactPlugin.configs.flat.recommended.rules,
+      ...reactHooksPlugin.configs.flat.recommended.rules,
+      ...reactRefreshPlugin.configs.recommended.rules,
+      ...tseslint.plugin.configs.recommended.rules,
+      ...boundariesPlugin.configs.recommended.rules,
+      ...importPlugin.flatConfigs.recommended.rules,
+      ...prettierPlugin.configs.recommended.rules,
+
       // Formatting & style
       "prettier/prettier": "error",
       "no-console": "warn",
@@ -72,6 +92,7 @@ export default defineConfig([
         "warn",
         { allowConstantExport: true },
       ],
+      "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "error",
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
@@ -99,6 +120,34 @@ export default defineConfig([
         },
       ],
       "simple-import-sort/exports": "error",
+
+      // Dependency boundaries
+      "boundaries/element-types": [
+        2,
+        {
+          default: "disallow",
+          rules: [
+            {
+              from: "app",
+              allow: ["pages", "widgets", "features", "entities", "shared"],
+            },
+            {
+              from: "pages",
+              allow: ["widgets", "features", "shared"],
+            },
+            { from: "widgets", allow: ["features", "entities", "shared"] },
+            { from: "features", allow: ["entities", "shared"] },
+            { from: "entities", allow: ["shared"] },
+            { from: "shared", allow: ["shared"] },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ["**/*.test.{ts,tsx,js,jsx}"],
+    rules: {
+      "boundaries/element-types": "off",
     },
   },
 ]);

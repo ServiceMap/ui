@@ -1,6 +1,6 @@
 import { http, HttpHandler, HttpResponse, type JsonBodyType } from "msw";
 
-import { HTTP_METHODS } from "@/constants/api.constants.ts";
+import { HTTP_METHODS } from "@/shared/api/consts";
 
 export type HttpResolver = Parameters<typeof http.get>[1];
 

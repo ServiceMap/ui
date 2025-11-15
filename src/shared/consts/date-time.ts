@@ -1,0 +1,4 @@
+export const DEFAULT_TIMEZONE = "UTC";
+export const DEFAULT_DATE_FORMAT = "YYYY-MM-DD";
+export const DEFAULT_TIME_FORMAT = "HH:mm:ss";
+export const DEFAULT_DATE_TIME_FORMAT = `${DEFAULT_DATE_FORMAT} ${DEFAULT_TIME_FORMAT}`;

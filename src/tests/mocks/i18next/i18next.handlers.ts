@@ -1,6 +1,6 @@
 import translationEN from "@/../public/locales/en/translation.json";
-import { HTTP_METHODS } from "@/constants/api.constants.ts";
-import { TEST_UI_URL } from "@/tests/constants.ts";
+import { HTTP_METHODS } from "@/shared/api/consts";
+import { TEST_UI_URL } from "@/tests/consts.ts";
 import { mockRequest } from "@/tests/mocks/mock.utils.ts";
 
 export const i18nextHandlers = [

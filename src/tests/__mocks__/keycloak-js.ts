@@ -8,7 +8,7 @@ import {
   TEST_PREFERRED_USERNAME,
   TEST_USER_ROLES,
   TEST_USERNAME,
-} from "@/tests/constants.ts";
+} from "@/tests/consts.ts";
 
 export default class Keycloak {
   public authenticated = false;

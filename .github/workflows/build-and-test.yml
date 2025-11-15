@@ -34,8 +34,11 @@ jobs:
       - name: Format check
         run: npm run format:check
 
-      - name: Lint check
+      - name: Lint code check
         run: npm run lint
+      
+      - name: Lint styles check
+        run: npm run lint:css
 
       - name: Build UI
         run: npm run build

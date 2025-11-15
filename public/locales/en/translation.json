@@ -1,12 +1,18 @@
 {
-  "welcome_message": "Welcome to ServiceMap",
-  "not_found_message": "NOT FOUND",
+  "access_denied": "Access denied",
+  "access_denied_message": "It appears that you do not have access to this page.\n Please contact your administrator or support for assistance.",
+  "all_rights_reserved": "All rights reserved",
+  "dark_theme_name": "Dark",
   "go_back_btn": "Go back",
-  "go_back_to_home_btn": "Go back to Home",
+  "go_home_btn": "Go Home",
+  "hello_user_message": "Hello, <strong>{{username}}</strong>!",
+  "light_theme_name": "Light",
+  "loading_message": "Loading...",
   "login_btn": "Login",
   "logout_btn": "Logout",
-  "hello_user_message": "Hello, <strong>{{username}}</strong>!",
-  "loading_message": "Loading...",
-  "invalid_realm_or_access_denied": "Invalid realm or access denied",
-  "something_went_wrong": "Something went wrong!"
+  "orange_theme_name": "Orange",
+  "page_not_found_message": "Page not found",
+  "register_btn": "Register",
+  "something_went_wrong": "Something went wrong!",
+  "welcome_message": "Welcome to ServiceMap"
 }
