@@ -1,1 +1,1 @@
-export { routeIsVisible } from "@/shared/lib/guards/route.ts";
+export { menuItemIsVisible } from "@/shared/lib/guards/route.ts";

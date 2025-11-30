@@ -1,4 +1,4 @@
-import { routeIsVisible } from "@/shared/lib";
+import { menuItemIsVisible } from "@/shared/lib";
 import {
   type CollapsibleMenuBaseItem,
   type CollapsibleMenuItem,
@@ -31,7 +31,7 @@ export const buildMenu = (
         return (
           !!menuItem[variant] &&
           (!menuItem.children || !!menuItem.children.length) &&
-          routeIsVisible(menuItem)
+          menuItemIsVisible(menuItem)
         );
       })
       .sort((firstMenuItem, secondMenuItem) => {
