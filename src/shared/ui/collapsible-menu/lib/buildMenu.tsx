@@ -1,9 +1,21 @@
-import { menuItemIsVisible } from "@/shared/lib";
+import { authService } from "@/shared/api/auth";
 import {
   type CollapsibleMenuBaseItem,
   type CollapsibleMenuItem,
   MENU_VARIANTS,
 } from "@/shared/ui";
+
+const isMenuItemVisible = (
+  route: Omit<CollapsibleMenuBaseItem, "path">,
+): boolean => {
+  //if (route.hidden) return false;
+  //if (!isFeatureEnabled(route.featureFlag)) return false;
+
+  return (
+    (!route.isAuthRequired || authService.isLoggedIn) &&
+    authService.hasRole(route.permissions ?? [])
+  );
+};
 
 export const buildMenu = (
   variant: MENU_VARIANTS,
@@ -31,7 +43,7 @@ export const buildMenu = (
         return (
           !!menuItem[variant] &&
           (!menuItem.children || !!menuItem.children.length) &&
-          menuItemIsVisible(menuItem)
+          isMenuItemVisible(menuItem)
         );
       })
       .sort((firstMenuItem, secondMenuItem) => {
