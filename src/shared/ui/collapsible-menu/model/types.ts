@@ -1,16 +1,28 @@
 import { type To } from "react-router-dom";
 
-import { type WithOptional } from "@/shared/types";
+import { type ValueOf, type WithOptional } from "@/shared/types";
+
+export const MENU_VARIANTS = { DESKTOP: "desktop", MOBILE: "mobile" } as const;
+
+export type MENU_VARIANTS = ValueOf<typeof MENU_VARIANTS>;
 
 export type CollapsibleMenuBaseItem = {
   icon?: React.ReactElement;
-  name: string;
-  to: To;
+  menuLabel: string;
+  path: To;
+
+  priority?: number;
+  desktop?: boolean;
+  mobile?: boolean;
+
+  isAuthRequired?: boolean;
+  permissions?: string[];
+  //featureFlag?: string;
 };
 
 export type CollapsibleMenuItem = WithOptional<
   CollapsibleMenuBaseItem,
-  "to"
+  "path"
 > & {
-  submenu?: CollapsibleMenuBaseItem[];
+  children?: CollapsibleMenuBaseItem[];
 };

@@ -1,38 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu } from "lucide-react";
 
-import { CSS_VARS } from "@/shared/consts";
-import { setCssVariables, useElementSize } from "@/shared/lib";
+import { CSS_VARS, PAGE_ROUTES } from "@/shared/consts";
+import { setCssVariables, useDebounce, useElementSize } from "@/shared/lib";
 import {
-  Button,
   LanguageSelector,
+  MENU_VARIANTS,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
+  SiteLogo,
   ThemeSelector,
 } from "@/shared/ui";
-import { MobileMenu, UserMenu } from "@/widgets/header/navbar";
+import { buildNavigationMenu } from "@/widgets/header/lib";
+import { MobileMenu } from "@/widgets/header/ui/MobileMenu.tsx";
+import { UserMenu } from "@/widgets/header/ui/UserMenu.tsx";
 
-import useDebounce from "../../../shared/lib/useDebounce.ts";
-
-const menu = [
-  { name: "Home", to: "/" },
-  { name: "About", to: "/about" },
-  {
-    name: "Products",
-    submenu: [
-      { name: "Item 1", to: "/products/1" },
-      { name: "Item 2", to: "/products/2" },
-    ],
-  },
-];
-
-export function Header() {
+export const Header = () => {
   const { ref: headerRef, size: headerSize } = useElementSize();
   const setCssVariablesDebounce = useDebounce();
-
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const desktopMenu = buildNavigationMenu(MENU_VARIANTS.DESKTOP);
 
   useEffect(() => {
     const height = headerSize.height;
@@ -60,37 +47,40 @@ export function Header() {
       className="tw:flex tw:items-stretch tw:justify-between tw:border-b tw:px-6 tw:py-3"
     >
       <div className="tw:flex tw:h-auto tw:items-center tw:gap-4">
-        <Link to="/" className="tw:text-lg tw:font-bold tw:text-primary">
-          ServiceMap
-        </Link>
+        <SiteLogo clickableRoute={PAGE_ROUTES.ROOT}>ServiceMap</SiteLogo>
 
         <nav className="tw:hidden tw:md:flex">
           <NavigationMenu>
             <NavigationMenuList className="tw:flex tw:gap-3">
-              {menu.map((item) =>
-                item.submenu ? (
+              {desktopMenu.map((menuItem) =>
+                menuItem.children ? (
                   <NavigationMenuItem
-                    key={item.name}
+                    key={menuItem.menuLabel}
                     className="tw:group/submenu tw:relative"
                   >
-                    <span className="tw:cursor-pointer">{item.name}</span>
+                    <span className="tw:cursor-pointer">
+                      {menuItem.menuLabel}
+                    </span>
 
                     <div className="tw:absolute tw:mt-0 tw:hidden tw:min-w-[150px] tw:rounded tw:border tw:bg-popover tw:p-2 tw:group-hover/submenu:block">
-                      {item.submenu.map((sub) => (
+                      {menuItem.children.map((sub) => (
                         <Link
-                          key={sub.to}
-                          to={sub.to}
+                          key={sub.menuLabel}
+                          to={sub.path}
                           className="tw:block tw:px-3 tw:py-1 tw:text-popover-foreground tw:hover:bg-secondary"
                         >
-                          {sub.name}
+                          {sub.menuLabel}
                         </Link>
                       ))}
                     </div>
                   </NavigationMenuItem>
                 ) : (
-                  <NavigationMenuItem key={item.name}>
-                    <Link to={item.to} className="tw:hover:text-primary">
-                      {item.name}
+                  <NavigationMenuItem key={menuItem.menuLabel}>
+                    <Link
+                      to={menuItem.path as string}
+                      className="tw:hover:text-primary"
+                    >
+                      {menuItem.menuLabel}
                     </Link>
                   </NavigationMenuItem>
                 ),
@@ -100,24 +90,16 @@ export function Header() {
         </nav>
       </div>
 
-      <div className="tw:flex tw:items-center">
+      <div className="tw:flex tw:items-center tw:md:gap-3">
+        <ThemeSelector />
+        <LanguageSelector />
+
         <div className="tw:flex tw:items-center tw:gap-3 tw:max-md:hidden">
-          <LanguageSelector />
-          <ThemeSelector />
           <UserMenu />
         </div>
 
-        <Button
-          variant="ghost"
-          size="icon"
-          className="tw:md:hidden"
-          onClick={() => setMobileOpen(true)}
-        >
-          <Menu size={20} />
-        </Button>
+        <MobileMenu />
       </div>
-
-      <MobileMenu open={mobileOpen} onOpenChange={setMobileOpen} menu={menu} />
     </header>
   );
-}
+};

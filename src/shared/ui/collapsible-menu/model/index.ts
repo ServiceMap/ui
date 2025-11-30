@@ -1,2 +1,5 @@
-export type { CollapsibleMenuBaseItem } from "@/shared/ui/collapsible-menu/model/types.ts";
-export type { CollapsibleMenuItem } from "@/shared/ui/collapsible-menu/model/types.ts";
+export {
+  type CollapsibleMenuBaseItem,
+  type CollapsibleMenuItem,
+  MENU_VARIANTS,
+} from "@/shared/ui/collapsible-menu/model/types.ts";

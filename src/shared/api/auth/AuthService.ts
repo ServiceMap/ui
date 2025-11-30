@@ -154,14 +154,17 @@ class AuthService extends EventTarget {
     const familyName = tokenParsed?.family_name as string;
     if (familyName) fullNameArr.push(familyName);
 
-    const roles = tokenParsed.realm_access?.roles || [];
     return {
       id: tokenParsed.sub as string,
       username: tokenParsed.name as string,
       preferredName: tokenParsed.preferred_username as string,
       email: tokenParsed.email as string,
-      roles: roles,
+      roles: this.userRoles,
     };
+  }
+
+  get userRoles() {
+    return this.keycloak!.tokenParsed?.realm_access?.roles || [];
   }
 
   login = async (): Promise<void> => {

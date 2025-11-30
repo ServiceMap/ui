@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 
-export function Footer() {
+export const Footer = () => {
   const { t } = useTranslation();
 
   return (
@@ -112,4 +112,4 @@ export function Footer() {
       </div>
     </footer>
   );
-}
+};

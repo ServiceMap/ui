@@ -12,4 +12,11 @@ export const PAGE_ROUTES = {
   PAYMENT: "/stripe-test",
   ACCESS_DENIED: "/access-denied",
   NOT_FOUND: "/not-found",
+
+  ABOUT: "/about",
+  PRODUCTS: "/products",
+  PROVIDE_SERVICE: "/provide-service",
+  MASTERS: "/masters",
+  HELP: "/help",
+  HOW_IT_WORKS: "/how-it-works",
 } as const;

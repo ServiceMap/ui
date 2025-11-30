@@ -12,3 +12,11 @@ export type ValueOf<T> = T[keyof T];
  */
 export type WithOptional<T, K extends keyof T> = Omit<T, K> &
   Partial<Pick<T, K>>;
+
+/**
+ * Overrides the properties of a type with new properties.
+ */
+export type Override<
+  Type,
+  NewType extends { [key in keyof Type]?: NewType[key] },
+> = Omit<Type, keyof NewType> & NewType;

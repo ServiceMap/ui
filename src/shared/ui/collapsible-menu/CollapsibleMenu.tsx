@@ -25,7 +25,7 @@ const CollapsibleMenuItemTemplate = ({
 }: CollapsibleMenuItemTemplateProps) => {
   return (
     <Link
-      to={item.to}
+      to={item.path}
       className={cn(
         "tw:flex tw:h-8 tw:items-center tw:gap-2 tw:rounded-md tw:px-2 tw:text-sm tw:ring-sidebar-ring tw:hover:bg-sidebar-accent tw:[&>svg]:size-4 tw:[&>svg]:shrink-0",
         {
@@ -35,7 +35,7 @@ const CollapsibleMenuItemTemplate = ({
       )}
     >
       {item.icon}
-      {item.name}
+      {item.menuLabel}
     </Link>
   );
 };
@@ -69,7 +69,7 @@ const CollapsibleMenuHeader = ({
         )}
       >
         {item.icon}
-        {item.name}
+        {item.menuLabel}
       </span>
       <ChevronDown
         size={16}
@@ -101,7 +101,7 @@ const CollapsibleMenuSubmenu = ({
       )}
     >
       {items.map((sub) => (
-        <ItemComponent key={sub.name} item={sub} isSubMenu />
+        <ItemComponent key={sub.menuLabel} item={sub} isSubMenu />
       ))}
     </div>
   );
@@ -132,11 +132,15 @@ const CollapsibleMenu = ({
   SubmenuComponent = CollapsibleMenuSubmenu,
   ItemComponent = CollapsibleMenuItemTemplate,
 }: CollapsibleMenuProps) => {
-  if (!item.submenu) {
+  if (!item.children) {
     return (
-      <ItemComponent key={item.name} item={{ ...item, to: item.to || "#" }} />
+      <ItemComponent
+        key={item.menuLabel}
+        item={{ ...item, path: item.path || "#" }}
+      />
     );
   }
+
   return (
     <Collapsible
       className={cn(
@@ -149,7 +153,7 @@ const CollapsibleMenu = ({
       </CollapsibleTrigger>
 
       <CollapsibleContent>
-        <SubmenuComponent items={item.submenu} ItemComponent={ItemComponent} />
+        <SubmenuComponent items={item.children} ItemComponent={ItemComponent} />
       </CollapsibleContent>
     </Collapsible>
   );
