@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Menu } from "lucide-react";
 
 import { AuthSwitchButton, RegisterButton } from "@/features/auth";
@@ -18,6 +19,7 @@ import {
 import { buildNavigationMenu } from "@/widgets/header/lib";
 
 export const MobileMenu = () => {
+  const { t } = useTranslation();
   const mobileMenu = buildNavigationMenu(MENU_VARIANTS.MOBILE);
 
   return (
@@ -31,7 +33,9 @@ export const MobileMenu = () => {
       <SheetContent side="right" className="tw:gap-0">
         <SheetHeader>
           <SheetTitle>
-            <SiteLogo clickableRoute={PAGE_ROUTES.ROOT}>ServiceMap</SiteLogo>
+            <SiteLogo clickableRoute={PAGE_ROUTES.ROOT}>
+              {t("brand_name")}
+            </SiteLogo>
           </SheetTitle>
         </SheetHeader>
 
@@ -41,7 +45,7 @@ export const MobileMenu = () => {
         >
           <div className={"tw:flex tw:flex-1 tw:flex-col tw:gap-2 tw:px-2"}>
             {mobileMenu.map((menuItem) => (
-              <CollapsibleMenu key={menuItem.menuLabel} item={menuItem} />
+              <CollapsibleMenu key={menuItem.i18nKey} item={menuItem} />
             ))}
           </div>
         </ScrollArea>

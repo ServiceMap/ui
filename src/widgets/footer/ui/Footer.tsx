@@ -13,7 +13,7 @@ export const Footer = () => {
             to="/"
             className="tw:text-xl tw:font-bold tw:text-primary tw:hover:opacity-80"
           >
-            ServiceMap
+            {t("brand_name")}
           </Link>
           <p className="tw:mt-3 tw:text-sm tw:leading-relaxed">
             Connecting services and companies in one simple platform. Manage
@@ -104,7 +104,7 @@ export const Footer = () => {
 
           <div className="tw:mt-6 tw:flex tw:items-center">
             <p className="tw:text-xs">
-              © {new Date().getFullYear()} ServiceMap.{" "}
+              © {new Date().getFullYear()} {t("brand_name")}.{" "}
               {t("all_rights_reserved")}
             </p>
           </div>

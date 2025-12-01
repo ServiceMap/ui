@@ -8,7 +8,7 @@ export type MENU_VARIANTS = ValueOf<typeof MENU_VARIANTS>;
 
 export type CollapsibleMenuBaseItem = {
   icon?: React.ReactElement;
-  menuLabel: string;
+  i18nKey: string;
   path: To;
 
   priority?: number;

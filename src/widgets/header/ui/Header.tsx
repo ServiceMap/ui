@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { CSS_VARS, PAGE_ROUTES } from "@/shared/consts";
@@ -17,6 +18,7 @@ import { MobileMenu } from "@/widgets/header/ui/MobileMenu.tsx";
 import { UserMenu } from "@/widgets/header/ui/UserMenu.tsx";
 
 export const Header = () => {
+  const { t } = useTranslation();
   const { ref: headerRef, size: headerSize } = useElementSize();
   const setCssVariablesDebounce = useDebounce();
   const desktopMenu = buildNavigationMenu(MENU_VARIANTS.DESKTOP);
@@ -47,7 +49,7 @@ export const Header = () => {
       className="tw:flex tw:items-stretch tw:justify-between tw:border-b tw:px-6 tw:py-3"
     >
       <div className="tw:flex tw:h-auto tw:items-center tw:gap-4">
-        <SiteLogo clickableRoute={PAGE_ROUTES.ROOT}>ServiceMap</SiteLogo>
+        <SiteLogo clickableRoute={PAGE_ROUTES.ROOT}>{t("brand_name")}</SiteLogo>
 
         <nav className="tw:hidden tw:md:flex">
           <NavigationMenu>
@@ -55,32 +57,32 @@ export const Header = () => {
               {desktopMenu.map((menuItem) =>
                 menuItem.children ? (
                   <NavigationMenuItem
-                    key={menuItem.menuLabel}
+                    key={menuItem.i18nKey}
                     className="tw:group/submenu tw:relative"
                   >
                     <span className="tw:cursor-pointer">
-                      {menuItem.menuLabel}
+                      {t(menuItem.i18nKey)}
                     </span>
 
                     <div className="tw:absolute tw:mt-0 tw:hidden tw:min-w-[150px] tw:rounded tw:border tw:bg-popover tw:p-2 tw:group-hover/submenu:block">
                       {menuItem.children.map((sub) => (
                         <Link
-                          key={sub.menuLabel}
+                          key={sub.i18nKey}
                           to={sub.path}
                           className="tw:block tw:px-3 tw:py-1 tw:text-popover-foreground tw:hover:bg-secondary"
                         >
-                          {sub.menuLabel}
+                          {t(sub.i18nKey)}
                         </Link>
                       ))}
                     </div>
                   </NavigationMenuItem>
                 ) : (
-                  <NavigationMenuItem key={menuItem.menuLabel}>
+                  <NavigationMenuItem key={menuItem.i18nKey}>
                     <Link
                       to={menuItem.path as string}
                       className="tw:hover:text-primary"
                     >
-                      {menuItem.menuLabel}
+                      {t(menuItem.i18nKey)}
                     </Link>
                   </NavigationMenuItem>
                 ),

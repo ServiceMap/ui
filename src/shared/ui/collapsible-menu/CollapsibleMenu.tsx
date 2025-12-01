@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 
@@ -23,6 +24,8 @@ const CollapsibleMenuItemTemplate = ({
   item,
   isSubMenu,
 }: CollapsibleMenuItemTemplateProps) => {
+  const { t } = useTranslation();
+
   return (
     <Link
       to={item.path}
@@ -35,7 +38,7 @@ const CollapsibleMenuItemTemplate = ({
       )}
     >
       {item.icon}
-      {item.menuLabel}
+      {t(item.i18nKey)}
     </Link>
   );
 };
@@ -54,6 +57,8 @@ const CollapsibleMenuHeader = ({
   item,
   ...props
 }: CollapsibleMenuHeaderProps) => {
+  const { t } = useTranslation();
+
   return (
     <div
       {...props}
@@ -69,7 +74,7 @@ const CollapsibleMenuHeader = ({
         )}
       >
         {item.icon}
-        {item.menuLabel}
+        {t(item.i18nKey)}
       </span>
       <ChevronDown
         size={16}
@@ -101,7 +106,7 @@ const CollapsibleMenuSubmenu = ({
       )}
     >
       {items.map((sub) => (
-        <ItemComponent key={sub.menuLabel} item={sub} isSubMenu />
+        <ItemComponent key={sub.i18nKey} item={sub} isSubMenu />
       ))}
     </div>
   );
@@ -135,7 +140,7 @@ const CollapsibleMenu = ({
   if (!item.children) {
     return (
       <ItemComponent
-        key={item.menuLabel}
+        key={item.i18nKey}
         item={{ ...item, path: item.path || "#" }}
       />
     );

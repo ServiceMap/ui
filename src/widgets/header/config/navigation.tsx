@@ -17,7 +17,7 @@ export const NAVIGATION_MENU = new Map<PageRoute, CollapsibleMenuItem>([
     {
       priority: 1,
       icon: <UserSearchIcon />,
-      menuLabel: "Find a master",
+      i18nKey: "navigation.find_a_master",
       path: PAGE_ROUTES.MASTERS,
       desktop: true,
       mobile: true,
@@ -28,7 +28,7 @@ export const NAVIGATION_MENU = new Map<PageRoute, CollapsibleMenuItem>([
     {
       priority: 10,
       icon: <FileQuestionMarkIcon />,
-      menuLabel: "How it works",
+      i18nKey: "navigation.how_it_works",
       path: PAGE_ROUTES.HOW_IT_WORKS,
       desktop: true,
       mobile: true,
@@ -39,7 +39,7 @@ export const NAVIGATION_MENU = new Map<PageRoute, CollapsibleMenuItem>([
     {
       priority: 20,
       icon: <PencilRulerIcon />,
-      menuLabel: "Provide a service",
+      i18nKey: "navigation.provide_a_service",
       path: PAGE_ROUTES.PROVIDE_SERVICE,
       desktop: true,
       mobile: true,
@@ -50,20 +50,20 @@ export const NAVIGATION_MENU = new Map<PageRoute, CollapsibleMenuItem>([
     {
       priority: 30,
       icon: <PackageOpenIcon />,
-      menuLabel: "Products",
+      i18nKey: "navigation.products",
       desktop: true,
       mobile: true,
       children: [
         {
           priority: 1,
-          menuLabel: "Menu Item 1",
+          i18nKey: "navigation.menu_item_1",
           path: `${PAGE_ROUTES.PRODUCTS}/1`,
           desktop: true,
           mobile: false,
         },
         {
           priority: 10,
-          menuLabel: "Menu Item 2",
+          i18nKey: "navigation.menu_item_2",
           path: `${PAGE_ROUTES.PRODUCTS}/2`,
           icon: <PencilRulerIcon />,
           desktop: false,
@@ -76,7 +76,7 @@ export const NAVIGATION_MENU = new Map<PageRoute, CollapsibleMenuItem>([
     PAGE_ROUTES.DASHBOARD,
     {
       priority: 40,
-      menuLabel: "Dashboard",
+      i18nKey: "navigation.dashboard",
       path: PAGE_ROUTES.DASHBOARD,
       isAuthRequired: true,
       permissions: [ROLES.SUPER_ADMIN, ROLES.COMPANY_ADMIN, ROLES.MASTER],
@@ -89,7 +89,7 @@ export const NAVIGATION_MENU = new Map<PageRoute, CollapsibleMenuItem>([
     {
       priority: 50,
       icon: <CircleQuestionMarkIcon />,
-      menuLabel: "Help",
+      i18nKey: "navigation.help",
       path: PAGE_ROUTES.HELP,
       desktop: true,
       mobile: true,

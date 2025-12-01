@@ -16,7 +16,8 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:ui": "vitest --ui",
-    "test:report": "vitest run --coverage"
+    "test:report": "vitest run --coverage",
+    "translate:parser": "i18next 'src/**/*.{js,jsx,ts,tsx}' --config i18next-parser.config.js"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.11",
