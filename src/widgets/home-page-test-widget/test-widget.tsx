@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import dayjs from "dayjs";
 
 import { StripeSandboxButton } from "@/features/payments";
-import { Button, useAuthContext, useThemeContext } from "@/shared/ui";
+import { Button, Loader, useAuthContext, useThemeContext } from "@/shared/ui";
 
 export const TestWidget = () => {
   const { t } = useTranslation();
@@ -20,7 +20,7 @@ export const TestWidget = () => {
 
   return (
     <div
-      className="tw:flex tw:flex-col tw:items-center tw:gap-4"
+      className="tw:flex tw:grow tw:flex-col tw:items-center tw:gap-4"
       data-testid="home-page"
     >
       <h1>{t("welcome_message")}</h1>
@@ -63,6 +63,8 @@ export const TestWidget = () => {
           </button>
         </>
       )}
+
+      <Loader />
     </div>
   );
 };

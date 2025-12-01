@@ -5,11 +5,13 @@ import { Spinner } from "@/shared/ui";
 
 interface LoadingComponentProps {
   fullscreen?: boolean;
+  containerSpace?: boolean;
   isLoading?: boolean;
 }
 
 export const Loader = ({
   fullscreen,
+  containerSpace,
   isLoading = true,
 }: LoadingComponentProps) => {
   const { t } = useTranslation();
@@ -18,9 +20,10 @@ export const Loader = ({
     isLoading && (
       <div
         className={cn(
-          "tw:flex tw:grow tw:items-center tw:justify-center tw:gap-2 tw:bg-popover/50",
+          "tw:inset-0 tw:flex tw:grow tw:items-center tw:justify-center tw:gap-2 tw:place-self-stretch tw:bg-popover/50",
           {
-            "tw:fixed tw:inset-0": fullscreen,
+            "tw:fixed tw:z-50": fullscreen,
+            "tw:absolute": containerSpace,
           },
         )}
       >
