@@ -19,24 +19,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@/assets": ["./assets/*"],
-      "@/components/*": ["./components/*"],
-      "@/config/*": ["./config/*"],
-      "@/constants/*": ["./constants/*"],
-      "@/contexts/*": ["./contexts/*"],
-      "@/hooks/*": ["./hooks/*"],
-      "@/pages/*": ["./pages/*"],
-      "@/providers/*": ["./providers/*"],
-      "@/routing/*": ["./routing/*"],
-      "@/services/*": ["./services/*"],
-      "@/store/*": ["./store/*"],
-      "@/styles/*": ["./styles/*"],
-      "@/tests/*": ["./tests/*"],
-      "@/types/*": ["./types/*"],
-      "@/utils/*": ["./utils/*"]
+      "@/*": ["./src/*"]
     },
 
     /* Linting */
@@ -45,7 +30,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["src"]
 }

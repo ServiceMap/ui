@@ -1,10 +1,73 @@
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
+import path from "path";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { configDefaults, defineConfig } from "vitest/config";
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
+  plugins: [react(), tsconfigPaths(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          reactAvatar: ["@radix-ui/react-avatar"],
+          reactCollapsible: ["@radix-ui/react-collapsible"],
+          reactDialog: ["@radix-ui/react-dialog"],
+          reactDropdownMenu: ["@radix-ui/react-dropdown-menu"],
+          reactNavigationMenu: ["@radix-ui/react-navigation-menu"],
+          reactSelect: ["@radix-ui/react-select"],
+          reactSeparator: ["@radix-ui/react-separator"],
+          reactSlot: ["@radix-ui/react-slot"],
+          reactTooltip: ["@radix-ui/react-tooltip"],
+          reactScrollArea: ["@radix-ui/react-scroll-area"],
+
+          sentry: ["@sentry/react"],
+          stripe: ["@stripe/react-stripe-js", "@stripe/stripe-js"],
+
+          axios: ["axios"],
+          classVariances: ["class-variance-authority", "clsx"],
+          dayjs: ["dayjs"],
+          highcharts: ["highcharts-react-official"],
+          i18n: [
+            "i18next",
+            "i18next-browser-languagedetector",
+            "i18next-http-backend",
+            "react-i18next",
+          ],
+          keycloak: ["keycloak-js"],
+          reactIcons: ["lucide-react"],
+
+          react: ["react", "react-dom", "react-error-boundary", "react-router"],
+
+          tostify: ["react-toastify"],
+          tailwind: ["tailwind-merge", "tailwindcss", "tailwindcss-animate"],
+
+          zustand: ["zustand"],
+        },
+      },
+    },
+  },
+  server: {
+    headers: {
+      "Referrer-Policy": "no-referrer",
+    },
+    port: 5173,
+    host: true,
+    strictPort: true,
+  },
+  preview: {
+    headers: {
+      "Referrer-Policy": "no-referrer",
+    },
+    port: 5173,
+    host: true,
+    strictPort: true,
+  },
   test: {
     globals: true,
     deps: {
@@ -43,22 +106,5 @@ export default defineConfig({
     setupFiles: "./src/tests/setup.ts",
     mockReset: true,
     exclude: [...configDefaults.exclude],
-  },
-  server: {
-    headers: {
-      "Referrer-Policy": "no-referrer",
-    },
-    port: 5173,
-    host: true,
-    strictPort: true,
-    origin: "http://0.0.0.0:5173",
-  },
-  preview: {
-    headers: {
-      "Referrer-Policy": "no-referrer",
-    },
-    port: 5173,
-    host: true,
-    strictPort: true,
   },
 });

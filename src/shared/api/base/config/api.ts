@@ -1,0 +1,1 @@
+export const AXIOS_REQUEST_TIMEOUT_SECONDS = 30;
