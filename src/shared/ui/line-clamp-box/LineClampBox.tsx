@@ -12,10 +12,7 @@ export const LineClampBox = ({
   numberOfLines,
 }: LineClampBoxProps) => (
   <div
-    className={cn(
-      `tw:[display:-webkit-box] tw:overflow-hidden tw:[-webkit-box-orient:vertical]`,
-      className,
-    )}
+    className={cn(`tw:line-clamp-1`, className)}
     style={{ WebkitLineClamp: numberOfLines }}
   >
     {content}
