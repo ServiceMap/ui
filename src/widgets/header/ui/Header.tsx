@@ -10,6 +10,8 @@ import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
   SiteLogo,
   ThemeSelector,
 } from "@/shared/ui";
@@ -60,9 +62,9 @@ export const Header = () => {
                     key={menuItem.i18nKey}
                     className="tw:group/submenu tw:relative"
                   >
-                    <span className="tw:cursor-pointer">
+                    <NavigationMenuTrigger>
                       {t(menuItem.i18nKey)}
-                    </span>
+                    </NavigationMenuTrigger>
 
                     <div className="tw:absolute tw:mt-0 tw:hidden tw:min-w-[150px] tw:rounded tw:border tw:bg-popover tw:p-2 tw:group-hover/submenu:block">
                       {menuItem.children.map((sub) => (
@@ -78,12 +80,14 @@ export const Header = () => {
                   </NavigationMenuItem>
                 ) : (
                   <NavigationMenuItem key={menuItem.i18nKey}>
-                    <Link
-                      to={menuItem.path as string}
-                      className="tw:hover:text-primary"
+                    <NavigationMenuLink
+                      asChild
+                      className={navigationMenuTriggerStyle()}
                     >
-                      {t(menuItem.i18nKey)}
-                    </Link>
+                      <Link to={menuItem.path as string}>
+                        {t(menuItem.i18nKey)}
+                      </Link>
+                    </NavigationMenuLink>
                   </NavigationMenuItem>
                 ),
               )}
