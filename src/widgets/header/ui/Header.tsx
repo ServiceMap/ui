@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 import { CSS_VARS, PAGE_ROUTES } from "@/shared/consts";
-import { setCssVariables, useDebounce, useElementSize } from "@/shared/lib";
+import { cn, setCssVariables, useDebounce, useElementSize } from "@/shared/lib";
 import {
   LanguageSelector,
   MENU_VARIANTS,
@@ -67,20 +67,18 @@ export const Header = () => {
                     </NavigationMenuTrigger>
 
                     <NavigationMenuContent>
-                      <ul className="tw:w-max">
+                      <ul>
                         <li className="tw:flex tw:flex-col tw:p-1.5">
                           {menuItem.children.map((sub) => (
                             <NavigationMenuLink
                               key={sub.i18nKey}
                               asChild
-                              className="tw:rounded-sm"
+                              className={cn(
+                                navigationMenuTriggerStyle(),
+                                "tw:h-auto tw:rounded-sm tw:bg-inherit tw:px-2.5 tw:py-1.5",
+                              )}
                             >
-                              <Link
-                                to={sub.path}
-                                className="tw:px-2.5 tw:py-1 tw:text-popover-foreground tw:hover:bg-secondary"
-                              >
-                                {t(sub.i18nKey)}
-                              </Link>
+                              <Link to={sub.path}>{t(sub.i18nKey)}</Link>
                             </NavigationMenuLink>
                           ))}
                         </li>
