@@ -8,10 +8,13 @@ import {
   LanguageSelector,
   MENU_VARIANTS,
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
+  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
+  NavigationMenuViewport,
   SiteLogo,
   ThemeSelector,
 } from "@/shared/ui";
@@ -55,28 +58,36 @@ export const Header = () => {
 
         <nav className="tw:hidden tw:md:flex">
           <NavigationMenu>
-            <NavigationMenuList className="tw:flex tw:gap-3">
+            <NavigationMenuList>
               {desktopMenu.map((menuItem) =>
                 menuItem.children ? (
-                  <NavigationMenuItem
-                    key={menuItem.i18nKey}
-                    className="tw:group/submenu tw:relative"
-                  >
+                  <NavigationMenuItem key={menuItem.i18nKey}>
                     <NavigationMenuTrigger>
                       {t(menuItem.i18nKey)}
                     </NavigationMenuTrigger>
 
-                    <div className="tw:absolute tw:mt-0 tw:hidden tw:min-w-[150px] tw:rounded tw:border tw:bg-popover tw:p-2 tw:group-hover/submenu:block">
-                      {menuItem.children.map((sub) => (
-                        <Link
-                          key={sub.i18nKey}
-                          to={sub.path}
-                          className="tw:block tw:px-3 tw:py-1 tw:text-popover-foreground tw:hover:bg-secondary"
-                        >
-                          {t(sub.i18nKey)}
-                        </Link>
-                      ))}
-                    </div>
+                    <NavigationMenuContent>
+                      <ul className="tw:w-max">
+                        <li className="tw:flex tw:flex-col tw:p-1.5">
+                          {menuItem.children.map((sub) => (
+                            <NavigationMenuLink
+                              key={sub.i18nKey}
+                              asChild
+                              className="tw:rounded-sm"
+                            >
+                              <Link
+                                to={sub.path}
+                                className="tw:px-2.5 tw:py-1 tw:text-popover-foreground tw:hover:bg-secondary"
+                              >
+                                {t(sub.i18nKey)}
+                              </Link>
+                            </NavigationMenuLink>
+                          ))}
+                        </li>
+                      </ul>
+                    </NavigationMenuContent>
+
+                    <NavigationMenuViewport />
                   </NavigationMenuItem>
                 ) : (
                   <NavigationMenuItem key={menuItem.i18nKey}>
